@@ -163,6 +163,11 @@
                                     "mountPath": "[concat('/home/', parameters('sftpUser'), '/upload')]",
                                     "name": "sftpvolume",
                                     "readOnly": false
+                                },
+                                {
+                                    "mountPath": "[concat('/home/', parameters('sftpUser'), '/download')]",
+                                    "name": "sftpvolume2",
+                                    "readOnly": false
                                 }
                             ]
                         }
