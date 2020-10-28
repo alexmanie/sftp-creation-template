@@ -109,7 +109,14 @@
                                 "share",
                                 "create",
                                 "--name",
-                                "[parameters('fileShareNameUpload')]"
+                                "[parameters('fileShareNameUpload')]",
+                                "| ",
+                                "az",
+                                "storage",
+                                "share",
+                                "create",
+                                "--name",
+                                "[parameters('fileShareNameDownload')]"
                             ],
                             "environmentVariables": [
                                 {
