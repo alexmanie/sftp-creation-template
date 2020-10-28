@@ -13,11 +13,18 @@
                 "description": "Storage account type"
             }
         },
-        "fileShareName": {
+        "fileShareNameUpload": {
             "type": "string",
             "defaultValue": "upload",
             "metadata": {
-                "description": "Name of file share to be created"
+                "description": "Name of file share to be created for uploads"
+            }
+        },
+        "fileShareNameDownload": {
+            "type": "string",
+            "defaultValue": "download",
+            "metadata": {
+                "description": "Name of file share to be created for downloads"
             }
         },
         "sftpUser": {
@@ -102,7 +109,37 @@
                                 "share",
                                 "create",
                                 "--name",
-                                "[parameters('fileShareName')]"
+                                "[parameters('fileShareNameUpload')]"
+                            ],
+                            "environmentVariables": [
+                                {
+                                    "name": "AZURE_STORAGE_KEY",
+                                    "value": "[listKeys(variables('storageAccountName'),'2018-02-01').keys[0].value]"
+                                },
+                                {
+                                    "name": "AZURE_STORAGE_ACCOUNT",
+                                    "value": "[variables('storageAccountName')]"
+                                }
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": 1,
+                                    "memoryInGB": 1
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "[variables('cliContainerName')]",
+                        "properties": {
+                            "image": "[variables('cliContainerImage')]",
+                            "command": [
+                                "az",
+                                "storage",
+                                "share",
+                                "create",
+                                "--name",
+                                "[parameters('fileShareNameDownload')]"
                             ],
                             "environmentVariables": [
                                 {
@@ -190,7 +227,7 @@
                         "name": "sftpvolume",
                         "azureFile": {
                             "readOnly": false,
-                            "shareName": "[parameters('fileShareName')]",
+                            "shareName": "[parameters('fileShareNameUpload')]",
                             "storageAccountName": "[variables('storageAccountName')]",
                             "storageAccountKey": "[listKeys(variables('storageAccountName'),'2018-02-01').keys[0].value]"
                         }
@@ -199,7 +236,7 @@
                         "name": "sftpvolume2",
                         "azureFile": {
                             "readOnly": false,
-                            "shareName": "[parameters('fileShareName')]",
+                            "shareName": "[parameters('fileShareNameDownload')]",
                             "storageAccountName": "[variables('storageAccountName')]",
                             "storageAccountKey": "[listKeys(variables('storageAccountName'),'2018-02-01').keys[0].value]"
                         }
