@@ -109,14 +109,14 @@
                                 "share",
                                 "create",
                                 "--name",
-                                "[parameters('fileShareNameUpload')]",
-                                "&&",
-                                "az",
-                                "storage",
-                                "share",
-                                "create",
-                                "--name",
-                                "[parameters('fileShareNameDownload')]"
+                                "[parameters('fileShareNameUpload')]"
+                                // "&&",
+                                // "az",
+                                // "storage",
+                                // "share",
+                                // "create",
+                                // "--name",
+                                // "[parameters('fileShareNameDownload')]"
                             ],
                             "environmentVariables": [
                                 {
@@ -177,12 +177,13 @@
                                     "mountPath": "[concat('/home/', parameters('sftpUser'), '/upload')]",
                                     "name": "sftpvolume",
                                     "readOnly": false
-                                },
-                                {
-                                    "mountPath": "[concat('/home/', parameters('sftpUser'), '/download')]",
-                                    "name": "sftpvolume2",
-                                    "readOnly": false
                                 }
+                                // ,
+                                // {
+                                //     "mountPath": "[concat('/home/', parameters('sftpUser'), '/download')]",
+                                //     "name": "sftpvolume2",
+                                //     "readOnly": false
+                                // }
                             ]
                         }
                     }
@@ -208,16 +209,17 @@
                             "storageAccountName": "[variables('storageAccountName')]",
                             "storageAccountKey": "[listKeys(variables('storageAccountName'),'2018-02-01').keys[0].value]"
                         }
-                    },
-                    {
-                        "name": "sftpvolume2",
-                        "azureFile": {
-                            "readOnly": false,
-                            "shareName": "[parameters('fileShareNameDownload')]",
-                            "storageAccountName": "[variables('storageAccountName')]",
-                            "storageAccountKey": "[listKeys(variables('storageAccountName'),'2018-02-01').keys[0].value]"
-                        }
                     }
+                    // ,
+                    // {
+                    //     "name": "sftpvolume2",
+                    //     "azureFile": {
+                    //         "readOnly": false,
+                    //         "shareName": "[parameters('fileShareNameDownload')]",
+                    //         "storageAccountName": "[variables('storageAccountName')]",
+                    //         "storageAccountKey": "[listKeys(variables('storageAccountName'),'2018-02-01').keys[0].value]"
+                    //     }
+                    // }
                 ]
             }
         }
