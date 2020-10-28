@@ -110,7 +110,7 @@
                                 "create",
                                 "--name",
                                 "[parameters('fileShareNameUpload')]",
-                                "&& ",
+                                "&&",
                                 "az",
                                 "storage",
                                 "share",
